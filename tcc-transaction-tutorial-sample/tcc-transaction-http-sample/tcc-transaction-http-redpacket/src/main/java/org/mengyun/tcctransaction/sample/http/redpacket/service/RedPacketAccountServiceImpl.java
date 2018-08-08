@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 public class RedPacketAccountServiceImpl implements RedPacketAccountService {
 
     @Autowired
-    RedPacketAccountRepository redPacketAccountRepository;
+    private RedPacketAccountRepository redPacketAccountRepository;
 
     @Override
     public BigDecimal getRedPacketAccountByUserId(long userId) {

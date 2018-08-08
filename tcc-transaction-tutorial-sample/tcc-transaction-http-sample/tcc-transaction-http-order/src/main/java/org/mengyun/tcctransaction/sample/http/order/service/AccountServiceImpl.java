@@ -14,17 +14,17 @@ import java.math.BigDecimal;
 public class AccountServiceImpl {
 
     @Autowired
-    RedPacketAccountService redPacketAccountService;
+    private RedPacketAccountService redPacketAccountService;
 
     @Autowired
-    CapitalAccountService capitalAccountService;
+    private CapitalAccountService capitalAccountService;
 
 
-    public BigDecimal getRedPacketAccountByUserId(long userId){
+    public BigDecimal getRedPacketAccountByUserId(long userId) {
         return redPacketAccountService.getRedPacketAccountByUserId(userId);
     }
 
-    public BigDecimal getCapitalAccountByUserId(long userId){
+    public BigDecimal getCapitalAccountByUserId(long userId) {
         return capitalAccountService.getCapitalAccountByUserId(userId);
     }
 }

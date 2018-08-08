@@ -29,16 +29,16 @@ import java.util.List;
 public class OrderController {
 
     @Autowired
-    PlaceOrderServiceImpl placeOrderService;
+    private PlaceOrderServiceImpl placeOrderService;
 
     @Autowired
-    ProductRepository productRepository;
+    private ProductRepository productRepository;
 
     @Autowired
-    AccountServiceImpl accountService;
+    private AccountServiceImpl accountService;
 
     @Autowired
-    OrderServiceImpl orderService;
+    private OrderServiceImpl orderService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView index() {
@@ -47,10 +47,8 @@ public class OrderController {
     }
 
     @RequestMapping(value = "/user/{userId}/shop/{shopId}", method = RequestMethod.GET)
-    public ModelAndView getProductsInShop(@PathVariable long userId,
-                                          @PathVariable long shopId) {
+    public ModelAndView getProductsInShop(@PathVariable long userId, @PathVariable long shopId) {
         List<Product> products = productRepository.findByShopId(shopId);
-
         ModelAndView mv = new ModelAndView("/shop");
 
         mv.addObject("products", products);
@@ -61,9 +59,7 @@ public class OrderController {
     }
 
     @RequestMapping(value = "/user/{userId}/shop/{shopId}/product/{productId}/confirm", method = RequestMethod.GET)
-    public ModelAndView productDetail(@PathVariable long userId,
-                                      @PathVariable long shopId,
-                                      @PathVariable long productId) {
+    public ModelAndView productDetail(@PathVariable long userId, @PathVariable long shopId, @PathVariable long productId) {
 
         ModelAndView mv = new ModelAndView("product_detail");
 

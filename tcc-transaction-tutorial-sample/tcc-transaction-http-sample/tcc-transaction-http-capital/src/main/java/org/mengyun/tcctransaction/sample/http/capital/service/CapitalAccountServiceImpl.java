@@ -3,7 +3,6 @@ package org.mengyun.tcctransaction.sample.http.capital.service;
 import org.mengyun.tcctransaction.sample.capital.domain.repository.CapitalAccountRepository;
 import org.mengyun.tcctransaction.sample.http.capital.api.CapitalAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 
@@ -12,9 +11,8 @@ import java.math.BigDecimal;
  */
 public class CapitalAccountServiceImpl implements CapitalAccountService{
 
-
     @Autowired
-    CapitalAccountRepository capitalAccountRepository;
+    private CapitalAccountRepository capitalAccountRepository;
 
     @Override
     public BigDecimal getCapitalAccountByUserId(long userId) {

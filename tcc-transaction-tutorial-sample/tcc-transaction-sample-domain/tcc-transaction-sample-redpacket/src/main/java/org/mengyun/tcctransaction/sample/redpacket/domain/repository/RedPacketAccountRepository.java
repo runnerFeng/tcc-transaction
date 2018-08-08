@@ -14,10 +14,9 @@ import org.springframework.stereotype.Repository;
 public class RedPacketAccountRepository {
 
     @Autowired
-    RedPacketAccountDao redPacketAccountDao;
+    private RedPacketAccountDao redPacketAccountDao;
 
     public RedPacketAccount findByUserId(long userId) {
-
         return redPacketAccountDao.findByUserId(userId);
     }
 

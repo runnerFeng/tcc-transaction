@@ -13,17 +13,17 @@ import java.lang.reflect.Method;
 @Target({ElementType.METHOD})
 public @interface Compensable {
 
-    public Propagation propagation() default Propagation.REQUIRED;
+    Propagation propagation() default Propagation.REQUIRED;
 
-    public String confirmMethod() default "";
+    String confirmMethod() default "";
 
-    public String cancelMethod() default "";
+    String cancelMethod() default "";
 
-    public Class<? extends TransactionContextEditor> transactionContextEditor() default DefaultTransactionContextEditor.class;
+    Class<? extends TransactionContextEditor> transactionContextEditor() default DefaultTransactionContextEditor.class;
 
-    public boolean asyncConfirm() default false;
+    boolean asyncConfirm() default false;
 
-    public boolean asyncCancel() default false;
+    boolean asyncCancel() default false;
 
     class NullableTransactionContextEditor implements TransactionContextEditor {
 
@@ -39,26 +39,6 @@ public @interface Compensable {
     }
 
     class DefaultTransactionContextEditor implements TransactionContextEditor {
-
-        @Override
-        public TransactionContext get(Object target, Method method, Object[] args) {
-            int position = getTransactionContextParamPosition(method.getParameterTypes());
-
-            if (position >= 0) {
-                return (TransactionContext) args[position];
-            }
-
-            return null;
-        }
-
-        @Override
-        public void set(TransactionContext transactionContext, Object target, Method method, Object[] args) {
-
-            int position = getTransactionContextParamPosition(method.getParameterTypes());
-            if (position >= 0) {
-                args[position] = transactionContext;
-            }
-        }
 
         public static int getTransactionContextParamPosition(Class<?>[] parameterTypes) {
 
@@ -85,6 +65,26 @@ public @interface Compensable {
             }
 
             return transactionContext;
+        }
+
+        @Override
+        public TransactionContext get(Object target, Method method, Object[] args) {
+            int position = getTransactionContextParamPosition(method.getParameterTypes());
+
+            if (position >= 0) {
+                return (TransactionContext) args[position];
+            }
+
+            return null;
+        }
+
+        @Override
+        public void set(TransactionContext transactionContext, Object target, Method method, Object[] args) {
+
+            int position = getTransactionContextParamPosition(method.getParameterTypes());
+            if (position >= 0) {
+                args[position] = transactionContext;
+            }
         }
     }
 }

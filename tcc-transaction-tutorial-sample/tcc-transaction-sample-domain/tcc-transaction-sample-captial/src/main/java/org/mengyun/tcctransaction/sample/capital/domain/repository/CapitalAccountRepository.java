@@ -13,10 +13,9 @@ import org.springframework.stereotype.Repository;
 public class CapitalAccountRepository {
 
     @Autowired
-    CapitalAccountDao capitalAccountDao;
+    private CapitalAccountDao capitalAccountDao;
 
     public CapitalAccount findByUserId(long userId) {
-
         return capitalAccountDao.findByUserId(userId);
     }
 
