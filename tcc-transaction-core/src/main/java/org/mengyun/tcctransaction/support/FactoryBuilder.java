@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
+ * 工厂builder
  * Created by changming.xie on 2/23/17.
  */
 public final class FactoryBuilder {
@@ -14,10 +15,22 @@ public final class FactoryBuilder {
 
     }
 
-    private static List<BeanFactory> beanFactories = new ArrayList<BeanFactory>();
+    /**
+     * Bean工厂集合
+     */
+    private static List<BeanFactory> beanFactories = new ArrayList<>();
+    /**
+     * 类与Bean工厂的映射
+     */
+    private static ConcurrentHashMap<Class, SingeltonFactory> classFactoryMap = new ConcurrentHashMap<>();
 
-    private static ConcurrentHashMap<Class, SingeltonFactory> classFactoryMap = new ConcurrentHashMap<Class, SingeltonFactory>();
-
+    /**
+     * 获得指定类单例工厂
+     *
+     * @param clazz
+     * @param <T>
+     * @return
+     */
     public static <T> SingeltonFactory<T> factoryOf(Class<T> clazz) {
 
         if (!classFactoryMap.containsKey(clazz)) {
@@ -36,14 +49,28 @@ public final class FactoryBuilder {
         return classFactoryMap.get(clazz);
     }
 
+    /**
+     * 将Bean工厂注册到当前的Builder
+     *
+     * @param beanFactory
+     */
     public static void registerBeanFactory(BeanFactory beanFactory) {
         beanFactories.add(beanFactory);
     }
 
+    /**
+     * 单例工厂
+     *
+     * @param <T>
+     */
     public static class SingeltonFactory<T> {
-
+        /**
+         * 单例
+         */
         private volatile T instance = null;
-
+        /**
+         * 类名
+         */
         private String className;
 
         public SingeltonFactory(Class<T> clazz, T instance) {
@@ -55,6 +82,11 @@ public final class FactoryBuilder {
             this.className = clazz.getName();
         }
 
+        /**
+         * 获得单例
+         *
+         * @return
+         */
         public T getInstance() {
 
             if (instance == null) {

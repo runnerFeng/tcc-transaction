@@ -7,15 +7,15 @@ import java.util.Set;
  */
 public interface RecoverConfig {
 
-    public int getMaxRetryCount();
+    int getMaxRetryCount();
 
-    public int getRecoverDuration();
+    int getRecoverDuration();
 
-    public String getCronExpression();
+    String getCronExpression();
 
-    public Set<Class<? extends Exception>> getDelayCancelExceptions();
+    Set<Class<? extends Exception>> getDelayCancelExceptions();
 
-    public void setDelayCancelExceptions(Set<Class<? extends Exception>> delayRecoverExceptions);
+    void setDelayCancelExceptions(Set<Class<? extends Exception>> delayRecoverExceptions);
 
-    public int getAsyncTerminateThreadPoolSize();
+    int getAsyncTerminateThreadPoolSize();
 }

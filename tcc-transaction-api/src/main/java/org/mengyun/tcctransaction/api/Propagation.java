@@ -11,7 +11,7 @@ public enum Propagation {
 
     private final int value;
 
-    private Propagation(int value) {
+    Propagation(int value) {
         this.value = value;
     }
 

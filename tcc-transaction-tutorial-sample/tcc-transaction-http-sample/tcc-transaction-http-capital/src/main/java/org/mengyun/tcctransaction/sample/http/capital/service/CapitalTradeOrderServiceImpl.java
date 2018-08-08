@@ -22,10 +22,10 @@ import java.util.Calendar;
 public class CapitalTradeOrderServiceImpl implements CapitalTradeOrderService {
 
     @Autowired
-    CapitalAccountRepository capitalAccountRepository;
+    private CapitalAccountRepository capitalAccountRepository;
 
     @Autowired
-    TradeOrderRepository tradeOrderRepository;
+    private TradeOrderRepository tradeOrderRepository;
 
     @Override
     @Compensable(confirmMethod = "confirmRecord", cancelMethod = "cancelRecord", transactionContextEditor = MethodTransactionContextEditor.class)

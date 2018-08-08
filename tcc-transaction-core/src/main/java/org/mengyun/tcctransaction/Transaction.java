@@ -20,24 +20,42 @@ import java.util.concurrent.ConcurrentHashMap;
 public class Transaction implements Serializable {
 
     private static final long serialVersionUID = 7291423944314337931L;
-
+    /**
+     * 事务编号
+     */
     private TransactionXid xid;
-
+    /**
+     * 事务状态
+     */
     private TransactionStatus status;
-
+    /**
+     * 事务类型
+     */
     private TransactionType transactionType;
-
+    /**
+     * 重试次数
+     */
     private volatile int retriedCount = 0;
-
+    /**
+     * 创建时间
+     */
     private Date createTime = new Date();
-
+    /**
+     * 最后更新时间
+     */
     private Date lastUpdateTime = new Date();
-
+    /**
+     * 版本号
+     */
     private long version = 1;
-
-    private List<Participant> participants = new ArrayList<Participant>();
-
-    private Map<String, Object> attachments = new ConcurrentHashMap<String, Object>();
+    /**
+     * 参与者集合
+     */
+    private List<Participant> participants = new ArrayList<>();
+    /**
+     * 附带属性映射
+     */
+    private Map<String, Object> attachments = new ConcurrentHashMap<>();
 
     public Transaction() {
 
@@ -49,12 +67,22 @@ public class Transaction implements Serializable {
         this.transactionType = TransactionType.BRANCH;
     }
 
+    /**
+     * 创建指定类型的事务
+     *
+     * @param transactionType
+     */
     public Transaction(TransactionType transactionType) {
         this.xid = new TransactionXid();
         this.status = TransactionStatus.TRYING;
         this.transactionType = transactionType;
     }
 
+    /**
+     * 添加参与者
+     *
+     * @param participant
+     */
     public void enlistParticipant(Participant participant) {
         participants.add(participant);
     }
@@ -81,7 +109,9 @@ public class Transaction implements Serializable {
         this.status = status;
     }
 
-
+    /**
+     * 提交TCC事务
+     */
     public void commit() {
 
         for (Participant participant : participants) {
@@ -89,6 +119,9 @@ public class Transaction implements Serializable {
         }
     }
 
+    /**
+     * 回滚TCC事务
+     */
     public void rollback() {
         for (Participant participant : participants) {
             participant.rollback();

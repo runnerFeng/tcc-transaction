@@ -22,10 +22,10 @@ import java.util.Calendar;
 public class RedPacketTradeOrderServiceImpl implements RedPacketTradeOrderService {
 
     @Autowired
-    RedPacketAccountRepository redPacketAccountRepository;
+    private RedPacketAccountRepository redPacketAccountRepository;
 
     @Autowired
-    TradeOrderRepository tradeOrderRepository;
+    private TradeOrderRepository tradeOrderRepository;
 
     @Override
     @Compensable(confirmMethod = "confirmRecord", cancelMethod = "cancelRecord", transactionContextEditor = MethodTransactionContextEditor.class)

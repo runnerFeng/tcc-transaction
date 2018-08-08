@@ -17,8 +17,8 @@ public class TransactionManager {
     static final Logger logger = Logger.getLogger(TransactionManager.class.getSimpleName());
 
     private TransactionRepository transactionRepository;
-
-    private static final ThreadLocal<Deque<Transaction>> CURRENT = new ThreadLocal<Deque<Transaction>>();
+    // 当前线程事务队列
+    private static final ThreadLocal<Deque<Transaction>> CURRENT = new ThreadLocal<>();
 
     private ExecutorService executorService;
 
@@ -33,10 +33,17 @@ public class TransactionManager {
     public TransactionManager() {
     }
 
+    /**
+     * 发起根事务
+     *
+     * @return
+     */
     public Transaction begin() {
-
+        // 创建根事务
         Transaction transaction = new Transaction(TransactionType.ROOT);
+        // 存储事务
         transactionRepository.create(transaction);
+        // 注册事务
         registerTransaction(transaction);
         return transaction;
     }
@@ -89,7 +96,7 @@ public class TransactionManager {
             commitTransaction(transaction);
         }
     }
-    
+
 
     public void rollback(boolean asyncRollback) {
 
@@ -150,7 +157,11 @@ public class TransactionManager {
         return transactions != null && !transactions.isEmpty();
     }
 
-
+    /**
+     * 注册事务到当前事务线程队列
+     *
+     * @param transaction
+     */
     private void registerTransaction(Transaction transaction) {
 
         if (CURRENT.get() == null) {

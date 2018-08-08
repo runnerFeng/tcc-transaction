@@ -21,7 +21,7 @@
     <properties>
         <springframework.version>3.2.12.RELEASE</springframework.version>
 
-        <java.src.version>1.6</java.src.version>
+        <java.src.version>1.8</java.src.version>
         <java.target.version>1.6</java.target.version>
         <project.encoding>UTF-8</project.encoding>
 
