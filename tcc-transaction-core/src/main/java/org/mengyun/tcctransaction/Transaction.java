@@ -61,6 +61,10 @@ public class Transaction implements Serializable {
 
     }
 
+    /**
+     * 创建分支事务
+     * @param transactionContext
+     */
     public Transaction(TransactionContext transactionContext) {
         this.xid = transactionContext.getXid();
         this.status = TransactionStatus.TRYING;

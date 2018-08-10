@@ -3,7 +3,6 @@ package org.mengyun.tcctransaction.repository;
 
 import org.mengyun.tcctransaction.Transaction;
 import org.mengyun.tcctransaction.api.TransactionStatus;
-import org.mengyun.tcctransaction.serializer.JdkSerializationSerializer;
 import org.mengyun.tcctransaction.serializer.KryoPoolSerializer;
 import org.mengyun.tcctransaction.serializer.ObjectSerializer;
 import org.mengyun.tcctransaction.utils.CollectionUtils;
@@ -49,14 +48,15 @@ public class JdbcTransactionRepository extends CachableTransactionRepository {
         this.serializer = serializer;
     }
 
-    public void setDataSource(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
-
     public DataSource getDataSource() {
         return dataSource;
     }
 
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
+    @Override
     protected int doCreate(Transaction transaction) {
 
         Connection connection = null;
@@ -96,6 +96,7 @@ public class JdbcTransactionRepository extends CachableTransactionRepository {
         }
     }
 
+    @Override
     protected int doUpdate(Transaction transaction) {
         Connection connection = null;
         PreparedStatement stmt = null;
@@ -144,6 +145,7 @@ public class JdbcTransactionRepository extends CachableTransactionRepository {
         }
     }
 
+    @Override
     protected int doDelete(Transaction transaction) {
         Connection connection = null;
         PreparedStatement stmt = null;
@@ -176,6 +178,7 @@ public class JdbcTransactionRepository extends CachableTransactionRepository {
         }
     }
 
+    @Override
     protected Transaction doFindOne(Xid xid) {
 
         List<Transaction> transactions = doFind(Arrays.asList(xid));

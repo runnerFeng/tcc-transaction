@@ -12,19 +12,25 @@ import java.lang.reflect.Method;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD})
 public @interface Compensable {
-
+    // 传播级别
     Propagation propagation() default Propagation.REQUIRED;
 
+    // 确认执行业务方法
     String confirmMethod() default "";
 
+    // 取消执行业务方法
     String cancelMethod() default "";
 
+    // 事务上下文编辑
     Class<? extends TransactionContextEditor> transactionContextEditor() default DefaultTransactionContextEditor.class;
 
     boolean asyncConfirm() default false;
 
     boolean asyncCancel() default false;
 
+    /**
+     * 无事务上下文编辑器实现
+     */
     class NullableTransactionContextEditor implements TransactionContextEditor {
 
         @Override
@@ -38,8 +44,17 @@ public @interface Compensable {
         }
     }
 
+    /**
+     * 默认事务上下文编辑器实现
+     */
     class DefaultTransactionContextEditor implements TransactionContextEditor {
 
+        /**
+         * 获得事务上下文在参数里的位置
+         *
+         * @param parameterTypes
+         * @return
+         */
         public static int getTransactionContextParamPosition(Class<?>[] parameterTypes) {
 
             int position = -1;
