@@ -17,9 +17,13 @@ import java.util.concurrent.TimeUnit;
  * Created by changmingxie on 10/30/15.
  */
 public abstract class CachableTransactionRepository implements TransactionRepository {
-
+    /**
+     * 存储过期时间
+     */
     private int expireDuration = 120;
-
+    /**
+     * 缓存
+     */
     private Cache<Xid, Transaction> transactionXidCompensableTransactionCache;
 
     @Override
