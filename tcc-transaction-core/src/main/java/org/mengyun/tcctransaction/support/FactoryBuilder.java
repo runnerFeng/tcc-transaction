@@ -110,12 +110,12 @@ public final class FactoryBuilder {
 
         @Override
         public boolean equals(Object other) {
-            if (this == other) return true;
-            if (other == null || getClass() != other.getClass()) return false;
+            if (this == other) {return true;}
+            if (other == null || getClass() != other.getClass()) {return false;}
 
             SingeltonFactory that = (SingeltonFactory) other;
 
-            if (!className.equals(that.className)) return false;
+            if (!className.equals(that.className)){ return false;}
 
             return true;
         }

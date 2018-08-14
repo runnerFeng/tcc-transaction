@@ -12,21 +12,22 @@
     <artifactId>tcc-transaction-http-capital</artifactId>
     <packaging>war</packaging>
     <dependencies>
+        <!--api-->
         <dependency>
             <groupId>org.mengyun</groupId>
             <artifactId>tcc-transaction-http-capital-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <!--domain-->
+        <dependency>
+            <groupId>org.mengyun</groupId>
+            <artifactId>tcc-transaction-sample-captial</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.mengyun</groupId>
             <artifactId>tcc-transaction-spring</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.mengyun</groupId>
-            <artifactId>tcc-transaction-sample-captial</artifactId>
             <version>${project.version}</version>
         </dependency>
 
