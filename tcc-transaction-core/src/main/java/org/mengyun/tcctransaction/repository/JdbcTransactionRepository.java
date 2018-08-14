@@ -19,13 +19,21 @@ import java.util.List;
  * Created by changmingxie on 10/30/15.
  */
 public class JdbcTransactionRepository extends CachableTransactionRepository {
-
+    /**
+     * 领域
+     */
     private String domain;
-
+    /**
+     * 后缀
+     */
     private String tbSuffix;
-
+    /**
+     * 数据源
+     */
     private DataSource dataSource;
-
+    /**
+     * 序列化
+     */
     private ObjectSerializer serializer = new KryoPoolSerializer();
 
     public String getDomain() {
