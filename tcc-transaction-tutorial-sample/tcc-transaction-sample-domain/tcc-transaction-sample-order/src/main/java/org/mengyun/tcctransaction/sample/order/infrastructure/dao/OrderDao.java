@@ -7,9 +7,21 @@ import org.mengyun.tcctransaction.sample.order.domain.entity.Order;
  */
 public interface OrderDao {
 
-    public int insert(Order order);
+    /**
+     * 新增订单
+     *
+     * @param order
+     * @return
+     */
+    int insert(Order order);
 
-    public int update(Order order);
+    /**
+     * 更新订单
+     *
+     * @param order
+     * @return
+     */
+    int update(Order order);
 
     Order findByMerchantOrderNo(String merchantOrderNo);
 }

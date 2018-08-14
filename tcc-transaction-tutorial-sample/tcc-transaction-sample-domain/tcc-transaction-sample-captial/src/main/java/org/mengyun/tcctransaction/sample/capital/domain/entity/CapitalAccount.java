@@ -43,7 +43,7 @@ public class CapitalAccount {
         if (BigDecimal.ZERO.compareTo(this.balanceAmount) > 0) {
             throw new InsufficientBalanceException();
         }
-
+        // negate()取反函数
         transferAmount = transferAmount.add(amount.negate());
     }
 

@@ -34,7 +34,7 @@ public class Order implements Serializable {
 
     private String merchantOrderNo;
 
-    private long version = 1l;
+    private long version = 1L;
 
     /**
      * 订单明细数组

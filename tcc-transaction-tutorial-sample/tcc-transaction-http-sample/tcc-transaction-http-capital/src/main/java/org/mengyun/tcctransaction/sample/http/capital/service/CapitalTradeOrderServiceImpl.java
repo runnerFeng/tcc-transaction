@@ -33,7 +33,7 @@ public class CapitalTradeOrderServiceImpl implements CapitalTradeOrderService {
     public String record(TransactionContext transactionContext, CapitalTradeOrderDto tradeOrderDto) {
 
         try {
-            Thread.sleep(1000l);
+            Thread.sleep(1000L);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -44,7 +44,6 @@ public class CapitalTradeOrderServiceImpl implements CapitalTradeOrderService {
 
         //check if trade order has been recorded, if yes, return success directly.
         if (foundTradeOrder == null) {
-
             TradeOrder tradeOrder = new TradeOrder(
                     tradeOrderDto.getSelfUserId(),
                     tradeOrderDto.getOppositeUserId(),
@@ -61,10 +60,9 @@ public class CapitalTradeOrderServiceImpl implements CapitalTradeOrderService {
 
                 capitalAccountRepository.save(transferFromAccount);
             } catch (DataIntegrityViolationException e) {
-                //this exception may happen when insert trade order concurrently, if happened, ignore this insert operation.
+                // this exception may happen when insert trade order concurrently, if happened, ignore this insert operation.
             }
         }
-
         return "success";
     }
 
@@ -72,7 +70,7 @@ public class CapitalTradeOrderServiceImpl implements CapitalTradeOrderService {
     public void confirmRecord(TransactionContext transactionContext, CapitalTradeOrderDto tradeOrderDto) {
 
         try {
-            Thread.sleep(1000l);
+            Thread.sleep(1000L);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -98,7 +96,7 @@ public class CapitalTradeOrderServiceImpl implements CapitalTradeOrderService {
     public void cancelRecord(TransactionContext transactionContext, CapitalTradeOrderDto tradeOrderDto) {
 
         try {
-            Thread.sleep(1000l);
+            Thread.sleep(1000L);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
