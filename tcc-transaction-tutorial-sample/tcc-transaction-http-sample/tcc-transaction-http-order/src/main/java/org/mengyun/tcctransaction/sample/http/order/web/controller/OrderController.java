@@ -74,13 +74,19 @@ public class OrderController {
         return mv;
     }
 
+    /**
+     * 下单
+     * @param redPacketPayAmount
+     * @param shopId
+     * @param payerUserId
+     * @param productId
+     * @return
+     */
     @RequestMapping(value = "/placeorder", method = RequestMethod.POST)
     public RedirectView placeOrder(@RequestParam String redPacketPayAmount,
                                    @RequestParam long shopId,
                                    @RequestParam long payerUserId,
                                    @RequestParam long productId) {
-
-
         PlaceOrderRequest request = buildRequest(redPacketPayAmount, shopId, payerUserId, productId);
 
         String merchantOrderNo = placeOrderService.placeOrder(request.getPayerUserId(), request.getShopId(),

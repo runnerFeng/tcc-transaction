@@ -5,15 +5,26 @@ import java.math.BigDecimal;
 public class TradeOrder {
 
     private long id;
-
+    /**
+     * 转出用户编号
+     */
     private long selfUserId;
-
+    /**
+     * 转入用户编号
+     */
     private long oppositeUserId;
-
+    /**
+     * 商户订单号
+     */
     private String merchantOrderNo;
 
     private BigDecimal amount;
-
+    /**
+     * 交易订单状态
+     * DRAFT 草稿
+     * CONFIRM 交易成功
+     * CANCEL 交易取消
+     */
     private String status = "DRAFT";
 
     private long version = 1l;

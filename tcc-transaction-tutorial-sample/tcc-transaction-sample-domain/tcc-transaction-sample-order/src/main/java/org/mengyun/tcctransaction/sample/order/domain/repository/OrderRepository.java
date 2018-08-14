@@ -16,10 +16,10 @@ import org.springframework.stereotype.Repository;
 public class OrderRepository {
 
     @Autowired
-    OrderDao orderDao;
+    private OrderDao orderDao;
 
     @Autowired
-    OrderLineDao orderLineDao;
+    private OrderLineDao orderLineDao;
 
     public void createOrder(Order order) {
         orderDao.insert(order);

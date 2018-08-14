@@ -17,7 +17,7 @@ public class PlaceOrderRequest {
 
     private BigDecimal redPacketPayAmount;
 
-    private List<Pair<Long, Integer>> productQuantities = new ArrayList<Pair<Long, Integer>>();
+    private List<Pair<Long, Integer>> productQuantities = new ArrayList<>();
 
     public long getPayerUserId() {
         return payerUserId;

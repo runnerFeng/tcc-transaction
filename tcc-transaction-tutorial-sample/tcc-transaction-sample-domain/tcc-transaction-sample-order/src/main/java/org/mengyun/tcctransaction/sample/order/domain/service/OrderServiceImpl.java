@@ -17,17 +17,15 @@ import java.util.List;
 public class OrderServiceImpl {
 
     @Autowired
-    OrderRepository orderRepository;
+    private OrderRepository orderRepository;
 
     @Autowired
-    OrderFactory orderFactory;
+    private OrderFactory orderFactory;
 
     @Transactional
     public Order createOrder(long payerUserId, long payeeUserId, List<Pair<Long, Integer>> productQuantities) {
         Order order = orderFactory.buildOrder(payerUserId, payeeUserId, productQuantities);
-
         orderRepository.createOrder(order);
-
         return order;
     }
 

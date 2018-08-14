@@ -21,10 +21,10 @@ import java.util.Calendar;
 public class PaymentServiceImpl {
 
     @Autowired
-    TradeOrderServiceProxy tradeOrderServiceProxy;
+    private TradeOrderServiceProxy tradeOrderServiceProxy;
 
     @Autowired
-    OrderRepository orderRepository;
+    private OrderRepository orderRepository;
 
 
     @Compensable(confirmMethod = "confirmMakePayment", cancelMethod = "cancelMakePayment", asyncConfirm = true)
@@ -89,14 +89,12 @@ public class PaymentServiceImpl {
 
 
     private CapitalTradeOrderDto buildCapitalTradeOrderDto(Order order) {
-
         CapitalTradeOrderDto tradeOrderDto = new CapitalTradeOrderDto();
         tradeOrderDto.setAmount(order.getCapitalPayAmount());
         tradeOrderDto.setMerchantOrderNo(order.getMerchantOrderNo());
         tradeOrderDto.setSelfUserId(order.getPayerUserId());
         tradeOrderDto.setOppositeUserId(order.getPayeeUserId());
         tradeOrderDto.setOrderTitle(String.format("order no:%s", order.getMerchantOrderNo()));
-
         return tradeOrderDto;
     }
 
@@ -107,7 +105,6 @@ public class PaymentServiceImpl {
         tradeOrderDto.setSelfUserId(order.getPayerUserId());
         tradeOrderDto.setOppositeUserId(order.getPayeeUserId());
         tradeOrderDto.setOrderTitle(String.format("order no:%s", order.getMerchantOrderNo()));
-
         return tradeOrderDto;
     }
 }

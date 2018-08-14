@@ -23,13 +23,24 @@ public class Order implements Serializable {
 
     private BigDecimal capitalPayAmount;
 
+    /**
+     * 订单状态
+     *  DRAFT 草稿
+     *  PAYING 支付中
+     *  CONFIRMED 支付成功
+     *  PAY_FAILED 支付失败
+     */
     private String status = "DRAFT";
 
     private String merchantOrderNo;
 
     private long version = 1l;
 
-    private List<OrderLine> orderLines = new ArrayList<OrderLine>();
+    /**
+     * 订单明细数组
+     * 非存储字段
+     */
+    private List<OrderLine> orderLines = new ArrayList<>();
 
     public Order() {
 

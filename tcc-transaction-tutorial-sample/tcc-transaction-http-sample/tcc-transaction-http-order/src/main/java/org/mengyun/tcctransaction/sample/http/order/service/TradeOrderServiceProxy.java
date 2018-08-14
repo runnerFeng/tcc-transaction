@@ -18,10 +18,10 @@ import org.springframework.stereotype.Component;
 public class TradeOrderServiceProxy {
 
     @Autowired
-    CapitalTradeOrderService capitalTradeOrderService;
+    private CapitalTradeOrderService capitalTradeOrderService;
 
     @Autowired
-    RedPacketTradeOrderService redPacketTradeOrderService;
+    private RedPacketTradeOrderService redPacketTradeOrderService;
 
     /*the propagation need set Propagation.SUPPORTS,otherwise the recover doesn't work,
       The default value is Propagation.REQUIRED, which means will begin new transaction when recover.

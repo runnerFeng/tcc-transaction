@@ -14,7 +14,7 @@ import java.util.List;
 public class ProductRepository {
 
     @Autowired
-    ProductDao productDao;
+    private ProductDao productDao;
 
     public Product findById(long productId){
         return productDao.findById(productId);

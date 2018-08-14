@@ -20,14 +20,13 @@ import java.util.List;
 public class PlaceOrderServiceImpl {
 
     @Autowired
-    ShopRepository shopRepository;
+    private ShopRepository shopRepository;
 
     @Autowired
-    OrderServiceImpl orderService;
+    private OrderServiceImpl orderService;
 
     @Autowired
-    PaymentServiceImpl paymentService;
-
+    private PaymentServiceImpl paymentService;
 
     public String placeOrder(long payerUserId, long shopId, List<Pair<Long, Integer>> productQuantities, BigDecimal redPacketPayAmount) {
         Shop shop = shopRepository.findById(shopId);
@@ -38,7 +37,6 @@ public class PlaceOrderServiceImpl {
 
         try {
             paymentService.makePayment(order, redPacketPayAmount, order.getTotalAmount().subtract(redPacketPayAmount));
-
         } catch (ConfirmingException confirmingException) {
             //exception throws with the tcc transaction status is CONFIRMING,
             //when tcc transaction is confirming status,

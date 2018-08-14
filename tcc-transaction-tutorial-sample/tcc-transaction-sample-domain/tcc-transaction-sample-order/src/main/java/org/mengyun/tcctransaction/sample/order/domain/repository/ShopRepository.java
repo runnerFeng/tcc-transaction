@@ -12,10 +12,9 @@ import org.springframework.stereotype.Repository;
 public class ShopRepository {
 
     @Autowired
-    ShopDao shopDao;
+    private ShopDao shopDao;
 
     public Shop findById(long id) {
-
         return shopDao.findById(id);
     }
 }

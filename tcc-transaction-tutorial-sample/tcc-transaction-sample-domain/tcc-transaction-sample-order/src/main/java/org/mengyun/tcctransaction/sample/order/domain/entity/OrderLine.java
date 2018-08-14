@@ -18,7 +18,6 @@ public class OrderLine implements Serializable {
     private BigDecimal unitPrice;
 
     public OrderLine() {
-
     }
 
     public OrderLine(Long productId, Integer quantity,BigDecimal unitPrice) {

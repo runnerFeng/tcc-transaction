@@ -16,7 +16,7 @@ import java.util.List;
 public class OrderFactory {
 
     @Autowired
-    ProductRepository productRepository;
+    private ProductRepository productRepository;
 
     public Order buildOrder(long payerUserId, long payeeUserId, List<Pair<Long, Integer>> productQuantities) {
 
