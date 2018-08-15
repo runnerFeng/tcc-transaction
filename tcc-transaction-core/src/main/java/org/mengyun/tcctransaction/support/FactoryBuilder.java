@@ -11,10 +11,6 @@ import java.util.concurrent.ConcurrentHashMap;
 public final class FactoryBuilder {
 
 
-    private FactoryBuilder() {
-
-    }
-
     /**
      * Bean工厂集合
      */
@@ -23,6 +19,9 @@ public final class FactoryBuilder {
      * 类与Bean工厂的映射
      */
     private static ConcurrentHashMap<Class, SingeltonFactory> classFactoryMap = new ConcurrentHashMap<>();
+
+    private FactoryBuilder() {
+    }
 
     /**
      * 获得指定类单例工厂
@@ -110,12 +109,18 @@ public final class FactoryBuilder {
 
         @Override
         public boolean equals(Object other) {
-            if (this == other) {return true;}
-            if (other == null || getClass() != other.getClass()) {return false;}
+            if (this == other) {
+                return true;
+            }
+            if (other == null || getClass() != other.getClass()) {
+                return false;
+            }
 
             SingeltonFactory that = (SingeltonFactory) other;
 
-            if (!className.equals(that.className)){ return false;}
+            if (!className.equals(that.className)) {
+                return false;
+            }
 
             return true;
         }

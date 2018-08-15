@@ -1,5 +1,6 @@
 package org.mengyun.tcctransaction;
 
+import lombok.Setter;
 import org.apache.log4j.Logger;
 import org.mengyun.tcctransaction.api.TransactionContext;
 import org.mengyun.tcctransaction.api.TransactionStatus;
@@ -17,22 +18,18 @@ public class TransactionManager {
     static final Logger logger = Logger.getLogger(TransactionManager.class.getSimpleName());
     // 当前线程事务队列
     private static final ThreadLocal<Deque<Transaction>> CURRENT = new ThreadLocal<>();
+    @Setter
     private TransactionRepository transactionRepository;
+    @Setter
     private ExecutorService executorService;
 
     public TransactionManager() {
     }
 
-    public void setTransactionRepository(TransactionRepository transactionRepository) {
-        this.transactionRepository = transactionRepository;
-    }
-
-    public void setExecutorService(ExecutorService executorService) {
-        this.executorService = executorService;
-    }
-
     /**
      * 发起根事务
+     * 1.该方法在try阶段被调用
+     * 2.该方法调用方法类型为MethodType.ROOT
      *
      * @return
      */
@@ -48,6 +45,8 @@ public class TransactionManager {
 
     /**
      * 传播发起分支事务
+     * 1.该方法在try阶段被调用
+     * 2.该方法调用方法类型为MethodType.PROVIDER
      *
      * @param transactionContext
      * @return
@@ -64,6 +63,8 @@ public class TransactionManager {
 
     /**
      * 传播获取分支事务
+     * 1.该方法在confirm/cancel阶段被调用
+     * 2.该方法调用方法类型为MethodType.PROVIDER
      *
      * @param transactionContext
      * @return
@@ -74,7 +75,7 @@ public class TransactionManager {
         Transaction transaction = transactionRepository.findByXid(transactionContext.getXid());
 
         if (transaction != null) {
-            // 设置状态
+            // 设置状态为CONFIRMING or CANCELING
             transaction.changeStatus(TransactionStatus.valueOf(transactionContext.getStatus()));
             // 注册事务
             registerTransaction(transaction);
@@ -101,12 +102,7 @@ public class TransactionManager {
             try {
                 Long statTime = System.currentTimeMillis();
 
-                executorService.submit(new Runnable() {
-                    @Override
-                    public void run() {
-                        commitTransaction(transaction);
-                    }
-                });
+                executorService.submit(() -> commitTransaction(transaction));
                 logger.debug("async submit cost time:" + (System.currentTimeMillis() - statTime));
             } catch (Throwable commitException) {
                 logger.warn("compensable transaction async submit confirm failed, recovery job will try to confirm later.", commitException);
@@ -133,12 +129,7 @@ public class TransactionManager {
         if (asyncRollback) {
 
             try {
-                executorService.submit(new Runnable() {
-                    @Override
-                    public void run() {
-                        rollbackTransaction(transaction);
-                    }
-                });
+                executorService.submit(() -> rollbackTransaction(transaction));
             } catch (Throwable rollbackException) {
                 logger.warn("compensable transaction async rollback failed, recovery job will try to rollback later.", rollbackException);
                 throw new CancellingException(rollbackException);
@@ -148,7 +139,6 @@ public class TransactionManager {
             rollbackTransaction(transaction);
         }
     }
-
 
     private void commitTransaction(Transaction transaction) {
         try {
@@ -172,7 +162,7 @@ public class TransactionManager {
 
     public Transaction getCurrentTransaction() {
         if (isTransactionActive()) {
-            // 获取头部元素
+            // 获取头部元素，注册时也是在头部插入一个元素（栈的功能），即后加入的事务先执行
             return CURRENT.get().peek();
         }
         return null;
@@ -211,6 +201,7 @@ public class TransactionManager {
 
     /**
      * 添加参与者到事务
+     * 1.该方法在事务处于try阶段被调用
      *
      * @param participant
      */

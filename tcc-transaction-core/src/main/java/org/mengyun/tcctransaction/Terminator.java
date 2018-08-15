@@ -15,13 +15,10 @@ public class Terminator implements Serializable {
 
     private static final long serialVersionUID = -164958655471605778L;
 
-
     public Terminator() {
-
     }
 
     public Object invoke(TransactionContext transactionContext, InvocationContext invocationContext, Class<? extends TransactionContextEditor> transactionContextEditorClass) {
-
 
         if (StringUtils.isNotEmpty(invocationContext.getMethodName())) {
 

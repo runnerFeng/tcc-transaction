@@ -5,7 +5,6 @@ import org.mengyun.tcctransaction.Transaction;
 import org.mengyun.tcctransaction.repository.helper.ExpandTransactionSerializer;
 import org.mengyun.tcctransaction.repository.helper.JedisCallback;
 import org.mengyun.tcctransaction.repository.helper.RedisHelper;
-import org.mengyun.tcctransaction.serializer.JdkSerializationSerializer;
 import org.mengyun.tcctransaction.serializer.KryoPoolSerializer;
 import org.mengyun.tcctransaction.serializer.ObjectSerializer;
 import org.mengyun.tcctransaction.utils.RedisUtils;
@@ -64,7 +63,6 @@ public class RedisTransactionRepository extends CachableTransactionRepository {
     @Override
     protected int doCreate(final Transaction transaction) {
 
-
         try {
             Long statusCode = RedisHelper.execute(jedisPool, new JedisCallback<Long>() {
 
@@ -72,7 +70,7 @@ public class RedisTransactionRepository extends CachableTransactionRepository {
                 public Long doInJedis(Jedis jedis) {
 
 
-                    List<byte[]> params = new ArrayList<byte[]>();
+                    List<byte[]> params = new ArrayList<>();
 
                     for (Map.Entry<byte[], byte[]> entry : ExpandTransactionSerializer.serialize(serializer, transaction).entrySet()) {
                         params.add(entry.getKey());

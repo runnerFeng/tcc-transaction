@@ -62,9 +62,11 @@ public class Transaction implements Serializable {
 
     /**
      * 创建分支事务
+     *
      * @param transactionContext
      */
     public Transaction(TransactionContext transactionContext) {
+        // 分支事务的xid和发起事务的xid一致，这是confirm cancel方法执行的依据
         this.xid = transactionContext.getXid();
         this.status = TransactionStatus.TRYING;
         this.transactionType = TransactionType.BRANCH;
@@ -90,15 +92,9 @@ public class Transaction implements Serializable {
         participants.add(participant);
     }
 
-
     public Xid getXid() {
         return xid.clone();
     }
-
-    public TransactionStatus getStatus() {
-        return status;
-    }
-
 
     public List<Participant> getParticipants() {
         return participants;
@@ -106,6 +102,10 @@ public class Transaction implements Serializable {
 
     public TransactionType getTransactionType() {
         return transactionType;
+    }
+
+    public TransactionStatus getStatus() {
+        return status;
     }
 
     public void changeStatus(TransactionStatus status) {
@@ -116,7 +116,6 @@ public class Transaction implements Serializable {
      * 提交TCC事务
      */
     public void commit() {
-
         for (Participant participant : participants) {
             participant.commit();
         }
@@ -151,12 +150,12 @@ public class Transaction implements Serializable {
         return version;
     }
 
-    public void updateVersion() {
-        this.version++;
-    }
-
     public void setVersion(long version) {
         this.version = version;
+    }
+
+    public void updateVersion() {
+        this.version++;
     }
 
     public Date getLastUpdateTime() {

@@ -35,7 +35,6 @@ public class Participant implements Serializable {
     Class<? extends TransactionContextEditor> transactionContextEditorClass;
 
     public Participant() {
-
     }
 
     public Participant(TransactionXid xid, InvocationContext confirmInvocationContext, InvocationContext cancelInvocationContext, Class<? extends TransactionContextEditor> transactionContextEditorClass) {
@@ -51,9 +50,6 @@ public class Participant implements Serializable {
         this.transactionContextEditorClass = transactionContextEditorClass;
     }
 
-    public void setXid(TransactionXid xid) {
-        this.xid = xid;
-    }
 
     /**
      * 回滚事务
@@ -71,6 +67,10 @@ public class Participant implements Serializable {
 
     public Terminator getTerminator() {
         return terminator;
+    }
+
+    public void setXid(TransactionXid xid) {
+        this.xid = xid;
     }
 
     public TransactionXid getXid() {

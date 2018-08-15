@@ -21,12 +21,24 @@ public class SpringBeanFactory implements BeanFactory, ApplicationContextAware {
         FactoryBuilder.registerBeanFactory(this);
     }
 
+    /**
+     * 判断有没有这种类型的bean存在
+     *
+     * @param clazz
+     * @return
+     */
     @Override
     public boolean isFactoryOf(Class clazz) {
         Map map = this.applicationContext.getBeansOfType(clazz);
         return map.size() > 0;
     }
 
+    /**
+     * 获得唯一的bean
+     * @param var1
+     * @param <T>
+     * @return
+     */
     @Override
     public <T> T getBean(Class<T> var1) {
         return this.applicationContext.getBean(var1);

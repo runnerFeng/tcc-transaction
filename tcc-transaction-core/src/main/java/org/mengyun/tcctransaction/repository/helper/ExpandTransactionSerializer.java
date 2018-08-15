@@ -20,7 +20,7 @@ public class ExpandTransactionSerializer {
 
     public static Map<byte[], byte[]> serialize(ObjectSerializer serializer, Transaction transaction) {
 
-        Map<byte[], byte[]> map = new HashMap<byte[], byte[]>();
+        Map<byte[], byte[]> map = new HashMap<>();
 
         map.put("GLOBAL_TX_ID".getBytes(), transaction.getXid().getGlobalTransactionId());
         map.put("BRANCH_QUALIFIER".getBytes(), transaction.getXid().getBranchQualifier());
