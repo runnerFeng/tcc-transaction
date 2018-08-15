@@ -1,6 +1,7 @@
 package org.mengyun.tcctransaction.repository;
 
 
+import lombok.Data;
 import org.mengyun.tcctransaction.Transaction;
 import org.mengyun.tcctransaction.api.TransactionStatus;
 import org.mengyun.tcctransaction.serializer.KryoPoolSerializer;
@@ -18,6 +19,7 @@ import java.util.List;
 /**
  * Created by changmingxie on 10/30/15.
  */
+@Data
 public class JdbcTransactionRepository extends CachableTransactionRepository {
     /**
      * 领域
@@ -35,34 +37,6 @@ public class JdbcTransactionRepository extends CachableTransactionRepository {
      * 序列化
      */
     private ObjectSerializer serializer = new KryoPoolSerializer();
-
-    public String getDomain() {
-        return domain;
-    }
-
-    public void setDomain(String domain) {
-        this.domain = domain;
-    }
-
-    public String getTbSuffix() {
-        return tbSuffix;
-    }
-
-    public void setTbSuffix(String tbSuffix) {
-        this.tbSuffix = tbSuffix;
-    }
-
-    public void setSerializer(ObjectSerializer serializer) {
-        this.serializer = serializer;
-    }
-
-    public DataSource getDataSource() {
-        return dataSource;
-    }
-
-    public void setDataSource(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
 
     @Override
     protected int doCreate(Transaction transaction) {
@@ -238,7 +212,7 @@ public class JdbcTransactionRepository extends CachableTransactionRepository {
 
     protected List<Transaction> doFind(List<Xid> xids) {
 
-        List<Transaction> transactions = new ArrayList<Transaction>();
+        List<Transaction> transactions = new ArrayList<>();
 
         if (CollectionUtils.isEmpty(xids)) {
             return transactions;
@@ -303,7 +277,6 @@ public class JdbcTransactionRepository extends CachableTransactionRepository {
         }
     }
 
-
     protected Connection getConnection() {
         try {
             return this.dataSource.getConnection();
@@ -334,5 +307,12 @@ public class JdbcTransactionRepository extends CachableTransactionRepository {
 
     private String getTableName() {
         return StringUtils.isNotEmpty(tbSuffix) ? "TCC_TRANSACTION" + tbSuffix : "TCC_TRANSACTION";
+    }
+
+    public static void main(String[] args) {
+        StringBuilder builder = new StringBuilder();
+        builder.append("a b c d or");
+        builder.delete(builder.length() - 2, builder.length());
+        System.out.println(builder);
     }
 }

@@ -3,6 +3,7 @@ package org.mengyun.tcctransaction.repository;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
+import lombok.Setter;
 import org.mengyun.tcctransaction.OptimisticLockException;
 import org.mengyun.tcctransaction.Transaction;
 import org.mengyun.tcctransaction.TransactionRepository;
@@ -17,9 +18,11 @@ import java.util.concurrent.TimeUnit;
  * Created by changmingxie on 10/30/15.
  */
 public abstract class CachableTransactionRepository implements TransactionRepository {
+
     /**
      * 存储过期时间
      */
+    @Setter
     private int expireDuration = 120;
     /**
      * 缓存
@@ -95,6 +98,9 @@ public abstract class CachableTransactionRepository implements TransactionReposi
         return transactions;
     }
 
+    /**
+     * 设置最大缓存个数为1000个
+     */
     public CachableTransactionRepository() {
         transactionXidCompensableTransactionCache = CacheBuilder.newBuilder().expireAfterAccess(expireDuration, TimeUnit.SECONDS).maximumSize(1000).build();
     }
@@ -109,10 +115,6 @@ public abstract class CachableTransactionRepository implements TransactionReposi
 
     protected Transaction findFromCache(TransactionXid transactionXid) {
         return transactionXidCompensableTransactionCache.getIfPresent(transactionXid);
-    }
-
-    public void setExpireDuration(int durationInSeconds) {
-        this.expireDuration = durationInSeconds;
     }
 
     protected abstract int doCreate(Transaction transaction);

@@ -10,7 +10,6 @@ import java.io.ByteArrayOutputStream;
 
 public class KryoThreadLocalSerializer<T> implements ObjectSerializer<T> {
 
-
     private static final ThreadLocal<Kryo> AGG_KRYO_LOCAL = new ThreadLocal<Kryo>() {
         @Override
         protected Kryo initialValue() {
