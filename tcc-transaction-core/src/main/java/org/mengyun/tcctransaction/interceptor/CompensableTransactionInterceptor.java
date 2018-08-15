@@ -131,7 +131,7 @@ public class CompensableTransactionInterceptor {
         }
 
         Method method = ((MethodSignature) (pjp.getSignature())).getMethod();
-
+        // 为什么返回空值？Confirm / Cancel 相关方法，是通过 AOP 切面调用，只调用，不处理返回值，但是又不能没有返回值，因此直接返回空
         return ReflectionUtils.getNullValue(method.getReturnType());
     }
 
