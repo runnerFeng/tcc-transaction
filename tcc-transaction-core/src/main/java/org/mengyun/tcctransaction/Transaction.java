@@ -58,7 +58,6 @@ public class Transaction implements Serializable {
     private Map<String, Object> attachments = new ConcurrentHashMap<>();
 
     public Transaction() {
-
     }
 
     /**

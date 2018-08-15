@@ -11,6 +11,7 @@
 
     <artifactId>tcc-transaction-dubbo-sample</artifactId>
     <packaging>pom</packaging>
+
     <modules>
         <module>tcc-transaction-dubbo-capital</module>
         <module>tcc-transaction-dubbo-capital-api</module>
