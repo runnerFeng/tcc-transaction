@@ -1,6 +1,7 @@
 package org.mengyun.tcctransaction.interceptor;
 
 import com.alibaba.fastjson.JSON;
+import lombok.Setter;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -28,18 +29,10 @@ import java.util.Set;
 public class CompensableTransactionInterceptor {
 
     static final Logger logger = Logger.getLogger(CompensableTransactionInterceptor.class.getSimpleName());
-
+    @Setter
     private TransactionManager transactionManager;
-
+    @Setter
     private Set<Class<? extends Exception>> delayCancelExceptions;
-
-    public void setTransactionManager(TransactionManager transactionManager) {
-        this.transactionManager = transactionManager;
-    }
-
-    public void setDelayCancelExceptions(Set<Class<? extends Exception>> delayCancelExceptions) {
-        this.delayCancelExceptions = delayCancelExceptions;
-    }
 
     public Object interceptCompensableMethod(ProceedingJoinPoint pjp) throws Throwable {
 
@@ -71,7 +64,6 @@ public class CompensableTransactionInterceptor {
         }
     }
 
-
     private Object rootMethodProceed(ProceedingJoinPoint pjp, boolean asyncConfirm, boolean asyncCancel) throws Throwable {
 
         Object returnValue = null;
@@ -83,11 +75,12 @@ public class CompensableTransactionInterceptor {
             transaction = transactionManager.begin();
 
             try {
+                // 执行方法原逻辑
                 returnValue = pjp.proceed();
             } catch (Throwable tryingException) {
-
+                // 是否延迟回滚
                 if (!isDelayCancelException(tryingException)) {
-                   
+
                     logger.warn(String.format("compensable transaction trying failed. transaction content:%s", JSON.toJSONString(transaction)), tryingException);
 
                     transactionManager.rollback(asyncCancel);

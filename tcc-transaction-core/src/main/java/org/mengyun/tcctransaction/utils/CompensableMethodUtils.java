@@ -15,10 +15,12 @@ import java.lang.reflect.Method;
 public class CompensableMethodUtils {
 
     public static Method getCompensableMethod(ProceedingJoinPoint pjp) {
+        // 代理方法对象
         Method method = ((MethodSignature) (pjp.getSignature())).getMethod();
 
         if (method.getAnnotation(Compensable.class) == null) {
             try {
+                // 实际方法对象
                 method = pjp.getTarget().getClass().getMethod(method.getName(), method.getParameterTypes());
             } catch (NoSuchMethodException e) {
                 return null;

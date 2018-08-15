@@ -192,6 +192,7 @@ public class TransactionManager {
         if (isTransactionActive() && transaction != null) {
             Transaction currentTransaction = getCurrentTransaction();
             if (currentTransaction == transaction) {
+                //pop()弹出栈
                 CURRENT.get().pop();
             } else {
                 throw new SystemException("Illegal transaction when clean after completion");

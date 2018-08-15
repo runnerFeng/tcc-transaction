@@ -17,7 +17,6 @@ public class TransactionContext implements Serializable {
     private Map<String, String> attachments = new ConcurrentHashMap<String, String>();
 
     public TransactionContext() {
-
     }
 
     public TransactionContext(TransactionXid xid, int status) {

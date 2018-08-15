@@ -12,6 +12,7 @@ import java.lang.reflect.Method;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD})
 public @interface Compensable {
+
     // 传播级别
     Propagation propagation() default Propagation.REQUIRED;
 
@@ -29,7 +30,7 @@ public @interface Compensable {
     boolean asyncCancel() default false;
 
     /**
-     * 无事务上下文编辑器实现
+     * 无视务上下文编辑器实现
      */
     class NullableTransactionContextEditor implements TransactionContextEditor {
 
@@ -40,7 +41,6 @@ public @interface Compensable {
 
         @Override
         public void set(TransactionContext transactionContext, Object target, Method method, Object[] args) {
-
         }
     }
 
@@ -56,7 +56,6 @@ public @interface Compensable {
          * @return
          */
         public static int getTransactionContextParamPosition(Class<?>[] parameterTypes) {
-
             int position = -1;
 
             for (int i = 0; i < parameterTypes.length; i++) {
@@ -69,33 +68,27 @@ public @interface Compensable {
         }
 
         public static TransactionContext getTransactionContextFromArgs(Object[] args) {
-
             TransactionContext transactionContext = null;
-
             for (Object arg : args) {
                 if (arg != null && org.mengyun.tcctransaction.api.TransactionContext.class.isAssignableFrom(arg.getClass())) {
 
                     transactionContext = (org.mengyun.tcctransaction.api.TransactionContext) arg;
                 }
             }
-
             return transactionContext;
         }
 
         @Override
         public TransactionContext get(Object target, Method method, Object[] args) {
             int position = getTransactionContextParamPosition(method.getParameterTypes());
-
             if (position >= 0) {
                 return (TransactionContext) args[position];
             }
-
             return null;
         }
 
         @Override
         public void set(TransactionContext transactionContext, Object target, Method method, Object[] args) {
-
             int position = getTransactionContextParamPosition(method.getParameterTypes());
             if (position >= 0) {
                 args[position] = transactionContext;
