@@ -37,7 +37,7 @@ public class ExpandTransactionSerializer {
 
     public static Transaction deserialize(ObjectSerializer serializer, Map<byte[], byte[]> map1) {
 
-        Map<String, byte[]> propertyMap = new HashMap<String, byte[]>();
+        Map<String, byte[]> propertyMap = new HashMap<>();
 
         for (Map.Entry<byte[], byte[]> entry : map1.entrySet()) {
             propertyMap.put(new String(entry.getKey()), entry.getValue());

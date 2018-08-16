@@ -174,7 +174,7 @@ public class JdbcTransactionRepository extends CachableTransactionRepository {
     @Override
     protected List<Transaction> doFindAllUnmodifiedSince(java.util.Date date) {
 
-        List<Transaction> transactions = new ArrayList<Transaction>();
+        List<Transaction> transactions = new ArrayList<>();
 
         Connection connection = null;
         PreparedStatement stmt = null;

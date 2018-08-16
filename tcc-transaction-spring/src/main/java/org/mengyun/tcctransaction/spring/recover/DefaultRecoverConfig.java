@@ -16,13 +16,16 @@ public class DefaultRecoverConfig implements RecoverConfig {
 
     private int maxRetryCount = 30;
 
-    private int recoverDuration = 120; //120 seconds
+    /**
+     * 120 seconds
+     */
+    private int recoverDuration = 120;
 
     private String cronExpression = "0 */1 * * * ?";
 
     private int asyncTerminateThreadPoolSize = 1024;
 
-    private Set<Class<? extends Exception>> delayCancelExceptions = new HashSet<Class<? extends Exception>>();
+    private Set<Class<? extends Exception>> delayCancelExceptions = new HashSet<>();
 
     public DefaultRecoverConfig() {
         delayCancelExceptions.add(OptimisticLockException.class);
@@ -34,9 +37,17 @@ public class DefaultRecoverConfig implements RecoverConfig {
         return maxRetryCount;
     }
 
+    public void setMaxRetryCount(int maxRetryCount) {
+        this.maxRetryCount = maxRetryCount;
+    }
+
     @Override
     public int getRecoverDuration() {
         return recoverDuration;
+    }
+
+    public void setRecoverDuration(int recoverDuration) {
+        this.recoverDuration = recoverDuration;
     }
 
     @Override
@@ -44,17 +55,13 @@ public class DefaultRecoverConfig implements RecoverConfig {
         return cronExpression;
     }
 
-
-    public void setMaxRetryCount(int maxRetryCount) {
-        this.maxRetryCount = maxRetryCount;
-    }
-
-    public void setRecoverDuration(int recoverDuration) {
-        this.recoverDuration = recoverDuration;
-    }
-
     public void setCronExpression(String cronExpression) {
         this.cronExpression = cronExpression;
+    }
+
+    @Override
+    public Set<Class<? extends Exception>> getDelayCancelExceptions() {
+        return this.delayCancelExceptions;
     }
 
     @Override
@@ -63,10 +70,6 @@ public class DefaultRecoverConfig implements RecoverConfig {
     }
 
     @Override
-    public Set<Class<? extends Exception>> getDelayCancelExceptions() {
-        return this.delayCancelExceptions;
-    }
-
     public int getAsyncTerminateThreadPoolSize() {
         return asyncTerminateThreadPoolSize;
     }

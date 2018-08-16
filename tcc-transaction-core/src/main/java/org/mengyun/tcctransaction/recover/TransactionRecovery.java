@@ -32,7 +32,6 @@ public class TransactionRecovery {
 
     private List<Transaction> loadErrorTransactions() {
 
-
         long currentTimeInMillis = Calendar.getInstance().getTimeInMillis();
 
         TransactionRepository transactionRepository = transactionConfigurator.getTransactionRepository();
@@ -42,7 +41,6 @@ public class TransactionRecovery {
     }
 
     private void recoverErrorTransactions(List<Transaction> transactions) {
-
 
         for (Transaction transaction : transactions) {
 
@@ -59,7 +57,7 @@ public class TransactionRecovery {
                     > System.currentTimeMillis())) {
                 continue;
             }
-            
+
             try {
                 transaction.addRetriedCount();
 
