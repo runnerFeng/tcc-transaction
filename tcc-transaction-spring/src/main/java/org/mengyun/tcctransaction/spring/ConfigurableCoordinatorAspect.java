@@ -15,7 +15,6 @@ public class ConfigurableCoordinatorAspect extends ResourceCoordinatorAspect imp
     private TransactionConfigurator transactionConfigurator;
 
     public void init() {
-
         ResourceCoordinatorInterceptor resourceCoordinatorInterceptor = new ResourceCoordinatorInterceptor();
         resourceCoordinatorInterceptor.setTransactionManager(transactionConfigurator.getTransactionManager());
         this.setResourceCoordinatorInterceptor(resourceCoordinatorInterceptor);

@@ -1,6 +1,5 @@
 package org.mengyun.tcctransaction.interceptor;
 
-import lombok.Setter;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -12,8 +11,11 @@ import org.aspectj.lang.annotation.Pointcut;
 @Aspect
 public abstract class ResourceCoordinatorAspect {
 
-    @Setter
     private ResourceCoordinatorInterceptor resourceCoordinatorInterceptor;
+
+    public void setResourceCoordinatorInterceptor(ResourceCoordinatorInterceptor resourceCoordinatorInterceptor) {
+        this.resourceCoordinatorInterceptor = resourceCoordinatorInterceptor;
+    }
 
     @Pointcut("@annotation(org.mengyun.tcctransaction.api.Compensable)")
     public void transactionContextCall() {

@@ -2,6 +2,7 @@ package org.mengyun.tcctransaction;
 
 import lombok.Setter;
 import org.apache.log4j.Logger;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.mengyun.tcctransaction.api.TransactionContext;
 import org.mengyun.tcctransaction.api.TransactionStatus;
 import org.mengyun.tcctransaction.common.TransactionType;
@@ -11,7 +12,9 @@ import java.util.LinkedList;
 import java.util.concurrent.ExecutorService;
 
 /**
- * Created by changmingxie on 10/26/15.
+ * @author changmingxie
+ * @date 10/26/15
+ * Desc:事物管理器
  */
 public class TransactionManager {
 
@@ -28,7 +31,7 @@ public class TransactionManager {
 
     /**
      * 发起根事务
-     * 1.该方法在try阶段被调用
+     * 1.该方法在根(ROOT)事务的try阶段被调用
      * 2.该方法调用方法类型为MethodType.ROOT
      *
      * @return
@@ -38,14 +41,14 @@ public class TransactionManager {
         Transaction transaction = new Transaction(TransactionType.ROOT);
         // 存储事务
         transactionRepository.create(transaction);
-        // 注册事务
+        // 注册事务到队列中
         registerTransaction(transaction);
         return transaction;
     }
 
     /**
-     * 传播发起分支事务
-     * 1.该方法在try阶段被调用
+     * 从事务上下文中传播发起分支事务
+     * 1.该方法在分支(BRANCH)事务的try阶段被调用
      * 2.该方法调用方法类型为MethodType.PROVIDER
      *
      * @param transactionContext
@@ -62,8 +65,8 @@ public class TransactionManager {
     }
 
     /**
-     * 传播获取分支事务
-     * 1.该方法在confirm/cancel阶段被调用
+     * 从事务上下文中传播获取分支事务
+     * 1.该方法在分支(BRANCH)事务的confirm/cancel阶段被调用
      * 2.该方法调用方法类型为MethodType.PROVIDER
      *
      * @param transactionContext
@@ -86,7 +89,7 @@ public class TransactionManager {
     }
 
     /**
-     * 提交事务
+     * 提交事物：在事务try阶段没有异常的情况下由框架自动调用
      *
      * @param asyncCommit
      */
@@ -114,7 +117,9 @@ public class TransactionManager {
     }
 
     /**
-     * 回滚事务
+     * 回滚事务：在事务try阶段没有异常的情况下由框架自动调用
+     * 1.事务的rollback会遍历所有参与者，并分别调用参与者的rollback，通常，根事务端的参与者包含根事务参与者和分支事务参与者，而分支事务参与者通
+     * 常只有一个本地的事务参与者，除非它也发起了TCC分布式事务
      *
      * @param asyncRollback
      */
@@ -188,11 +193,20 @@ public class TransactionManager {
         CURRENT.get().push(transaction);
     }
 
+    /**
+     * 每次从事务管理器中获取事物后只是删除了repository中的记录，并未删除队列中的记录，该方法就是用来删除队列中的记录并且该方法在事务拦截器中的
+     * finally块中调用:
+     * {@link org.mengyun.tcctransaction.interceptor.CompensableTransactionInterceptor#rootMethodProceed(ProceedingJoinPoint, boolean, boolean)}
+     * {@link org.mengyun.tcctransaction.interceptor.CompensableTransactionInterceptor#providerMethodProceed(ProceedingJoinPoint, TransactionContext, boolean, boolean)}
+     *
+     * @param transaction
+     */
     public void cleanAfterCompletion(Transaction transaction) {
         if (isTransactionActive() && transaction != null) {
+            // 清理之前要比对要清理的事务是不是当前事务
             Transaction currentTransaction = getCurrentTransaction();
             if (currentTransaction == transaction) {
-                //pop()弹出栈
+                //pop()弹出栈，清理该事务
                 CURRENT.get().pop();
             } else {
                 throw new SystemException("Illegal transaction when clean after completion");
@@ -202,7 +216,8 @@ public class TransactionManager {
 
     /**
      * 添加参与者到事务
-     * 1.该方法在事务处于try阶段被调用
+     * 1.该方法在事务处于try阶段被调用:
+     * {@link org.mengyun.tcctransaction.interceptor.ResourceCoordinatorInterceptor#enlistParticipant(ProceedingJoinPoint)}
      *
      * @param participant
      */

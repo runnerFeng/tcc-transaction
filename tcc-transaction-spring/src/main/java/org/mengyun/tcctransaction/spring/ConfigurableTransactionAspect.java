@@ -1,5 +1,6 @@
 package org.mengyun.tcctransaction.spring;
 
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.mengyun.tcctransaction.TransactionManager;
 import org.mengyun.tcctransaction.interceptor.CompensableTransactionAspect;
@@ -26,6 +27,14 @@ public class ConfigurableTransactionAspect extends CompensableTransactionAspect 
         this.setCompensableTransactionInterceptor(compensableTransactionInterceptor);
     }
 
+    /**
+     * 这里需要注意的是：
+     * 1.这两个切面是有优先级排序的，排序通过实现spring框架中的Ordered接口就可以了，其中CompensableTransactionAspect优先级低于ResourceCoordinatorAspect
+     * ，ResourceCoordinateAspect的作用是添加参与者到事务，该方法在事务处于try阶段被调用。
+     * {@link org.mengyun.tcctransaction.interceptor.ResourceCoordinatorInterceptor#enlistParticipant(ProceedingJoinPoint)}
+     *
+     * @return
+     */
     @Override
     public int getOrder() {
         return Ordered.HIGHEST_PRECEDENCE;
@@ -34,4 +43,5 @@ public class ConfigurableTransactionAspect extends CompensableTransactionAspect 
     public void setTransactionConfigurator(TransactionConfigurator transactionConfigurator) {
         this.transactionConfigurator = transactionConfigurator;
     }
+
 }

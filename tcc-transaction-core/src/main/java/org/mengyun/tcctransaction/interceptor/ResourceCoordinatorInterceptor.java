@@ -1,6 +1,5 @@
 package org.mengyun.tcctransaction.interceptor;
 
-import lombok.Setter;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.mengyun.tcctransaction.InvocationContext;
@@ -22,8 +21,11 @@ import java.lang.reflect.Method;
  */
 public class ResourceCoordinatorInterceptor {
 
-    @Setter
     private TransactionManager transactionManager;
+
+    public void setTransactionManager(TransactionManager transactionManager) {
+        this.transactionManager = transactionManager;
+    }
 
     public Object interceptTransactionContextMethod(ProceedingJoinPoint pjp) throws Throwable {
 
