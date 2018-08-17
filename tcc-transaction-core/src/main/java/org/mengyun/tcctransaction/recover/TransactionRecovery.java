@@ -23,10 +23,13 @@ public class TransactionRecovery {
 
     private TransactionConfigurator transactionConfigurator;
 
+    /**
+     * 启动恢复事务逻辑
+     */
     public void startRecover() {
-
+        // 加载异常事务集合
         List<Transaction> transactions = loadErrorTransactions();
-
+        // 恢复事务异常集合
         recoverErrorTransactions(transactions);
     }
 
@@ -36,20 +39,20 @@ public class TransactionRecovery {
 
         TransactionRepository transactionRepository = transactionConfigurator.getTransactionRepository();
         RecoverConfig recoverConfig = transactionConfigurator.getRecoverConfig();
-
+        // 当前时间超过 - 事务变更时间( 最后执行时间 ) >= 事务恢复间隔( RecoverConfig#getRecoverDuration() )。这里有一点要注意，已完成的事务会从事务存储器删除
         return transactionRepository.findAllUnmodifiedSince(new Date(currentTimeInMillis - recoverConfig.getRecoverDuration() * 1000));
     }
 
     private void recoverErrorTransactions(List<Transaction> transactions) {
 
         for (Transaction transaction : transactions) {
-
+            // 超过最大重试次数
             if (transaction.getRetriedCount() > transactionConfigurator.getRecoverConfig().getMaxRetryCount()) {
 
                 logger.error(String.format("recover failed with max retry count,will not try again. txid:%s, status:%s,retried count:%d,transaction content:%s", transaction.getXid(), transaction.getStatus().getId(), transaction.getRetriedCount(), JSON.toJSONString(transaction)));
                 continue;
             }
-
+            // 分支事务超过最大可重试时间
             if (transaction.getTransactionType().equals(TransactionType.BRANCH)
                     && (transaction.getCreateTime().getTime() +
                     transactionConfigurator.getRecoverConfig().getMaxRetryCount() *
