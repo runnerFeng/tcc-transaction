@@ -66,7 +66,7 @@ public class Transaction implements Serializable {
      * @param transactionContext
      */
     public Transaction(TransactionContext transactionContext) {
-        // 分支事务的xid和发起事务的xid一致，这是confirm cancel方法执行的依据
+        // 分支事务的xid和发起事务的xid一致,从transactionContext中获取，这是confirm cancel方法执行的依据
         this.xid = transactionContext.getXid();
         this.status = TransactionStatus.TRYING;
         this.transactionType = TransactionType.BRANCH;
