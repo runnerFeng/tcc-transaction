@@ -24,7 +24,9 @@ import java.util.concurrent.ExecutorService;
 public class TransactionManager {
 
     static final Logger logger = Logger.getLogger(TransactionManager.class.getSimpleName());
-    // 当前线程事务队列
+    /**
+     * 当前线程事务队列
+     */
     private static final ThreadLocal<Deque<Transaction>> CURRENT = new ThreadLocal<>();
     @Setter
     private TransactionRepository transactionRepository;

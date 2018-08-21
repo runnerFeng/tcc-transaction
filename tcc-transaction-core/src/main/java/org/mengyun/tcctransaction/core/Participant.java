@@ -50,7 +50,6 @@ public class Participant implements Serializable {
         this.transactionContextEditorClass = transactionContextEditorClass;
     }
 
-
     /**
      * 回滚事务
      */
