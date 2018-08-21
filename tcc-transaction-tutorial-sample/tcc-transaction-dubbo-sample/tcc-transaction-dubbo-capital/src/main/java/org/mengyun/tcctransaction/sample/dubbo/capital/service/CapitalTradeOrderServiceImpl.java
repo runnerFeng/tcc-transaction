@@ -75,7 +75,7 @@ public class CapitalTradeOrderServiceImpl implements CapitalTradeOrderService {
     @Transactional
     public void confirmRecord(CapitalTradeOrderDto tradeOrderDto) {
         try {
-            Thread.sleep(1000l);
+            Thread.sleep(1000L);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

@@ -1,20 +1,19 @@
 package org.mengyun.tcctransaction.interceptor;
 
 import com.alibaba.fastjson.JSON;
-import lombok.Setter;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.mengyun.tcctransaction.exception.NoExistedTransactionException;
-import org.mengyun.tcctransaction.exception.SystemException;
-import org.mengyun.tcctransaction.core.Transaction;
-import org.mengyun.tcctransaction.core.TransactionManager;
 import org.mengyun.tcctransaction.api.Compensable;
 import org.mengyun.tcctransaction.api.Propagation;
 import org.mengyun.tcctransaction.api.TransactionContext;
 import org.mengyun.tcctransaction.api.TransactionStatus;
+import org.mengyun.tcctransaction.core.Transaction;
+import org.mengyun.tcctransaction.core.TransactionManager;
 import org.mengyun.tcctransaction.enums.MethodType;
+import org.mengyun.tcctransaction.exception.NoExistedTransactionException;
+import org.mengyun.tcctransaction.exception.SystemException;
 import org.mengyun.tcctransaction.support.FactoryBuilder;
 import org.mengyun.tcctransaction.utils.CompensableMethodUtils;
 import org.mengyun.tcctransaction.utils.ReflectionUtils;
@@ -29,10 +28,18 @@ import java.util.Set;
 public class CompensableTransactionInterceptor {
 
     static final Logger logger = Logger.getLogger(CompensableTransactionInterceptor.class.getSimpleName());
-    @Setter
+
     private TransactionManager transactionManager;
-    @Setter
+
     private Set<Class<? extends Exception>> delayCancelExceptions;
+
+    public void setTransactionManager(TransactionManager transactionManager) {
+        this.transactionManager = transactionManager;
+    }
+
+    public void setDelayCancelExceptions(Set<Class<? extends Exception>> delayCancelExceptions) {
+        this.delayCancelExceptions = delayCancelExceptions;
+    }
 
     public Object interceptCompensableMethod(ProceedingJoinPoint pjp) throws Throwable {
 

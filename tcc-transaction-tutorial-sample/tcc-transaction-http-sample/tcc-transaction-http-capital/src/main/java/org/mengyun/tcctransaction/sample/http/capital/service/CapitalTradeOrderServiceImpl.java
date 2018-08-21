@@ -44,12 +44,8 @@ public class CapitalTradeOrderServiceImpl implements CapitalTradeOrderService {
 
         //check if trade order has been recorded, if yes, return success directly.
         if (foundTradeOrder == null) {
-            TradeOrder tradeOrder = new TradeOrder(
-                    tradeOrderDto.getSelfUserId(),
-                    tradeOrderDto.getOppositeUserId(),
-                    tradeOrderDto.getMerchantOrderNo(),
-                    tradeOrderDto.getAmount()
-            );
+            TradeOrder tradeOrder = new TradeOrder(tradeOrderDto.getSelfUserId(), tradeOrderDto.getOppositeUserId(),
+                    tradeOrderDto.getMerchantOrderNo(), tradeOrderDto.getAmount());
 
             try {
                 tradeOrderRepository.insert(tradeOrder);
@@ -86,7 +82,7 @@ public class CapitalTradeOrderServiceImpl implements CapitalTradeOrderService {
 
             CapitalAccount transferToAccount = capitalAccountRepository.findByUserId(tradeOrderDto.getOppositeUserId());
 
-            transferToAccount.transferTo(tradeOrderDto.getAmount());
+//            transferToAccount.transferTo(tradeOrderDto.getAmount());
 
             capitalAccountRepository.save(transferToAccount);
         }

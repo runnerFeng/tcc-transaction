@@ -26,7 +26,6 @@ public class PaymentServiceImpl {
     @Autowired
     private OrderRepository orderRepository;
 
-
     @Compensable(confirmMethod = "confirmMakePayment", cancelMethod = "cancelMakePayment", asyncConfirm = true)
     @Transactional
     public void makePayment(Order order, BigDecimal redPacketPayAmount, BigDecimal capitalPayAmount) {
@@ -68,7 +67,6 @@ public class PaymentServiceImpl {
 
     public void cancelMakePayment(Order order, BigDecimal redPacketPayAmount, BigDecimal capitalPayAmount) {
 
-
         try {
             Thread.sleep(1000L);
         } catch (InterruptedException e) {
@@ -84,7 +82,6 @@ public class PaymentServiceImpl {
             orderRepository.updateOrder(order);
         }
     }
-
 
     private CapitalTradeOrderDto buildCapitalTradeOrderDto(Order order) {
         CapitalTradeOrderDto tradeOrderDto = new CapitalTradeOrderDto();

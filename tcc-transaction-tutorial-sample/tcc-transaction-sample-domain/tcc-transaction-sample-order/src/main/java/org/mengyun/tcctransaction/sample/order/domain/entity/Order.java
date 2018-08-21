@@ -43,7 +43,6 @@ public class Order implements Serializable {
     private List<OrderLine> orderLines = new ArrayList<>();
 
     public Order() {
-
     }
 
     public Order(long payerUserId, long payeeUserId) {

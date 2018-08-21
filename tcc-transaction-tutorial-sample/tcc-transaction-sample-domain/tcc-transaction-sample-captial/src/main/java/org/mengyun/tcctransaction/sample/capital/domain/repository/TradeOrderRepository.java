@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 public class TradeOrderRepository {
 
     @Autowired
-    TradeOrderDao tradeOrderDao;
+    private TradeOrderDao tradeOrderDao;
 
     public void insert(TradeOrder tradeOrder) {
         tradeOrderDao.insert(tradeOrder);

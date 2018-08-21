@@ -27,13 +27,13 @@ public class TransactionXid implements Xid, Serializable {
     private byte[] branchQualifier;
 
     public TransactionXid() {
-        globalTransactionId = uuidToByteArray(UUID.randomUUID());
-        branchQualifier = uuidToByteArray(UUID.randomUUID());
+        this.globalTransactionId = uuidToByteArray(UUID.randomUUID());
+        this.branchQualifier = uuidToByteArray(UUID.randomUUID());
     }
 
     public TransactionXid(byte[] globalTransactionId) {
         this.globalTransactionId = globalTransactionId;
-        branchQualifier = uuidToByteArray(UUID.randomUUID());
+        this.branchQualifier = uuidToByteArray(UUID.randomUUID());
     }
 
     public TransactionXid(byte[] globalTransactionId, byte[] branchQualifier) {
