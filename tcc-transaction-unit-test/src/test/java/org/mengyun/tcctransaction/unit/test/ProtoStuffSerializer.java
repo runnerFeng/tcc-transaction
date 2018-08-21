@@ -3,7 +3,7 @@ package org.mengyun.tcctransaction.unit.test;
 import io.protostuff.LinkedBuffer;
 import io.protostuff.ProtobufIOUtil;
 import io.protostuff.runtime.RuntimeSchema;
-import org.mengyun.tcctransaction.Transaction;
+import org.mengyun.tcctransaction.core.Transaction;
 import org.mengyun.tcctransaction.serializer.ObjectSerializer;
 
 /**

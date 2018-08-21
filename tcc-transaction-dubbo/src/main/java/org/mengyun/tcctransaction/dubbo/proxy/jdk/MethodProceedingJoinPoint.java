@@ -6,7 +6,7 @@ import org.aspectj.lang.Signature;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.aspectj.lang.reflect.SourceLocation;
 import org.aspectj.runtime.internal.AroundClosure;
-import org.mengyun.tcctransaction.SystemException;
+import org.mengyun.tcctransaction.exception.SystemException;
 import org.mengyun.tcctransaction.utils.ReflectionUtils;
 
 import java.lang.reflect.InvocationTargetException;

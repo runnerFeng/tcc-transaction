@@ -1,7 +1,7 @@
 package org.mengyun.tcctransaction.spring.support;
 
-import org.mengyun.tcctransaction.TransactionManager;
-import org.mengyun.tcctransaction.TransactionRepository;
+import org.mengyun.tcctransaction.core.TransactionManager;
+import org.mengyun.tcctransaction.repository.TransactionRepository;
 import org.mengyun.tcctransaction.recover.RecoverConfig;
 import org.mengyun.tcctransaction.repository.CachableTransactionRepository;
 import org.mengyun.tcctransaction.spring.recover.DefaultRecoverConfig;
@@ -27,6 +27,7 @@ public class SpringTransactionConfigurator implements TransactionConfigurator {
     private TransactionManager transactionManager;
 
     public void init() {
+        // 设置repository executorService
         transactionManager = new TransactionManager();
         transactionManager.setTransactionRepository(transactionRepository);
 

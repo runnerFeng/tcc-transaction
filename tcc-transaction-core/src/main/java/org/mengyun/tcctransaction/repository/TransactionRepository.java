@@ -1,5 +1,6 @@
-package org.mengyun.tcctransaction;
+package org.mengyun.tcctransaction.repository;
 
+import org.mengyun.tcctransaction.core.Transaction;
 import org.mengyun.tcctransaction.api.TransactionXid;
 
 import java.util.Date;

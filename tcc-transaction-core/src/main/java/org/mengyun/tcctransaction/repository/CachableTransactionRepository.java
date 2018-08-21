@@ -4,9 +4,8 @@ package org.mengyun.tcctransaction.repository;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import lombok.Setter;
-import org.mengyun.tcctransaction.OptimisticLockException;
-import org.mengyun.tcctransaction.Transaction;
-import org.mengyun.tcctransaction.TransactionRepository;
+import org.mengyun.tcctransaction.exception.OptimisticLockException;
+import org.mengyun.tcctransaction.core.Transaction;
 import org.mengyun.tcctransaction.api.TransactionXid;
 
 import javax.transaction.xa.Xid;

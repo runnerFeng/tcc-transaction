@@ -1,7 +1,7 @@
 package org.mengyun.tcctransaction.server.dao;
 
 import org.apache.commons.lang3.time.DateUtils;
-import org.mengyun.tcctransaction.SystemException;
+import org.mengyun.tcctransaction.exception.SystemException;
 import org.mengyun.tcctransaction.repository.TransactionIOException;
 import org.mengyun.tcctransaction.repository.helper.JedisCallback;
 import org.mengyun.tcctransaction.repository.helper.RedisHelper;

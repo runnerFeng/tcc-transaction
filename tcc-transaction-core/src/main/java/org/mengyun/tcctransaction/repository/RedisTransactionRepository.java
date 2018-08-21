@@ -3,7 +3,7 @@ package org.mengyun.tcctransaction.repository;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.mengyun.tcctransaction.Transaction;
+import org.mengyun.tcctransaction.core.Transaction;
 import org.mengyun.tcctransaction.repository.helper.ExpandTransactionSerializer;
 import org.mengyun.tcctransaction.repository.helper.RedisHelper;
 import org.mengyun.tcctransaction.serializer.KryoPoolSerializer;

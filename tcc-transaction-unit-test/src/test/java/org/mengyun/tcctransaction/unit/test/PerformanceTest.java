@@ -1,9 +1,9 @@
 package org.mengyun.tcctransaction.unit.test;
 
 import org.junit.Test;
-import org.mengyun.tcctransaction.Participant;
-import org.mengyun.tcctransaction.Transaction;
-import org.mengyun.tcctransaction.common.TransactionType;
+import org.mengyun.tcctransaction.core.Participant;
+import org.mengyun.tcctransaction.core.Transaction;
+import org.mengyun.tcctransaction.enums.TransactionType;
 import org.mengyun.tcctransaction.serializer.KryoPoolSerializer;
 import org.mengyun.tcctransaction.serializer.ObjectSerializer;
 import org.mengyun.tcctransaction.unittest.client.TransferService;
@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
-import java.util.concurrent.locks.LockSupport;
 
 /**
  * Created by changming.xie on 2/24/16.

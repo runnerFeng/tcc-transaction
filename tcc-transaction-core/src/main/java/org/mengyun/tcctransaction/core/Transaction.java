@@ -1,10 +1,10 @@
-package org.mengyun.tcctransaction;
+package org.mengyun.tcctransaction.core;
 
 
 import org.mengyun.tcctransaction.api.TransactionContext;
 import org.mengyun.tcctransaction.api.TransactionStatus;
 import org.mengyun.tcctransaction.api.TransactionXid;
-import org.mengyun.tcctransaction.common.TransactionType;
+import org.mengyun.tcctransaction.enums.TransactionType;
 
 import javax.transaction.xa.Xid;
 import java.io.Serializable;

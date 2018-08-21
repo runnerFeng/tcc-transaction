@@ -1,6 +1,6 @@
 package org.mengyun.tcctransaction.repository.helper;
 
-import org.mengyun.tcctransaction.Transaction;
+import org.mengyun.tcctransaction.core.Transaction;
 import org.mengyun.tcctransaction.serializer.ObjectSerializer;
 
 import java.util.Date;

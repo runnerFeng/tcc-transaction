@@ -2,7 +2,7 @@ package org.mengyun.tcctransaction.spring;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Aspect;
-import org.mengyun.tcctransaction.TransactionManager;
+import org.mengyun.tcctransaction.core.TransactionManager;
 import org.mengyun.tcctransaction.interceptor.CompensableTransactionAspect;
 import org.mengyun.tcctransaction.interceptor.CompensableTransactionInterceptor;
 import org.mengyun.tcctransaction.support.TransactionConfigurator;
@@ -17,7 +17,6 @@ public class ConfigurableTransactionAspect extends CompensableTransactionAspect 
     private TransactionConfigurator transactionConfigurator;
 
     public void init() {
-
         TransactionManager transactionManager = transactionConfigurator.getTransactionManager();
 
         CompensableTransactionInterceptor compensableTransactionInterceptor = new CompensableTransactionInterceptor();

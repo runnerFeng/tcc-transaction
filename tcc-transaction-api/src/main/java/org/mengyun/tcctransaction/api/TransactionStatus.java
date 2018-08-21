@@ -23,27 +23,17 @@ public enum TransactionStatus {
         this.id = id;
     }
 
-    public int getId() {
-        return id;
-    }
-
     public static TransactionStatus valueOf(int id) {
-
-//        switch (id) {
-//            case 1:
-//                return TRYING;
-//            case 2:
-//                return CONFIRMING;
-//            default:
-//                return CANCELLING;
-//        }
-
         for (TransactionStatus transactionStatus : TransactionStatus.values()) {
             if (transactionStatus.getId() == id) {
                 return transactionStatus;
             }
         }
         return null;
+    }
+
+    public int getId() {
+        return id;
     }
 
 }

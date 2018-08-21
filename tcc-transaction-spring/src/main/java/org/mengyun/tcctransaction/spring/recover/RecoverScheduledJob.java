@@ -1,6 +1,6 @@
 package org.mengyun.tcctransaction.spring.recover;
 
-import org.mengyun.tcctransaction.SystemException;
+import org.mengyun.tcctransaction.exception.SystemException;
 import org.mengyun.tcctransaction.recover.TransactionRecovery;
 import org.mengyun.tcctransaction.support.TransactionConfigurator;
 import org.quartz.Scheduler;

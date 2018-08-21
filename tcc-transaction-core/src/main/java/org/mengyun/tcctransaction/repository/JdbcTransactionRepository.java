@@ -2,7 +2,7 @@ package org.mengyun.tcctransaction.repository;
 
 
 import lombok.Data;
-import org.mengyun.tcctransaction.Transaction;
+import org.mengyun.tcctransaction.core.Transaction;
 import org.mengyun.tcctransaction.api.TransactionStatus;
 import org.mengyun.tcctransaction.serializer.KryoPoolSerializer;
 import org.mengyun.tcctransaction.serializer.ObjectSerializer;

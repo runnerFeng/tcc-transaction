@@ -1,6 +1,6 @@
 package org.mengyun.tcctransaction.spring.recover;
 
-import org.mengyun.tcctransaction.OptimisticLockException;
+import org.mengyun.tcctransaction.exception.OptimisticLockException;
 import org.mengyun.tcctransaction.recover.RecoverConfig;
 
 import java.net.SocketTimeoutException;

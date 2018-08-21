@@ -2,7 +2,7 @@ package org.mengyun.tcctransaction.unit.test;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.mengyun.tcctransaction.SystemException;
+import org.mengyun.tcctransaction.exception.SystemException;
 import org.mengyun.tcctransaction.recover.TransactionRecovery;
 import org.mengyun.tcctransaction.unittest.client.TransferService;
 import org.mengyun.tcctransaction.unittest.entity.AccountRecord;

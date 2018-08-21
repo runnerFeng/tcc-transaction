@@ -1,4 +1,4 @@
-package org.mengyun.tcctransaction;
+package org.mengyun.tcctransaction.core;
 
 import lombok.Getter;
 

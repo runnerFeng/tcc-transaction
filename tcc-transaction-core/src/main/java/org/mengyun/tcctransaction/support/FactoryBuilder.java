@@ -10,7 +10,6 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public final class FactoryBuilder {
 
-
     /**
      * Bean工厂集合
      */

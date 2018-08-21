@@ -5,7 +5,7 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.mengyun.tcctransaction.api.Compensable;
 import org.mengyun.tcctransaction.api.Propagation;
 import org.mengyun.tcctransaction.api.TransactionContext;
-import org.mengyun.tcctransaction.common.MethodType;
+import org.mengyun.tcctransaction.enums.MethodType;
 
 import java.lang.reflect.Method;
 

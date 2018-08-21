@@ -1,4 +1,4 @@
-package org.mengyun.tcctransaction;
+package org.mengyun.tcctransaction.exception;
 
 /**
  * Created by changming.xie on 7/21/16.
