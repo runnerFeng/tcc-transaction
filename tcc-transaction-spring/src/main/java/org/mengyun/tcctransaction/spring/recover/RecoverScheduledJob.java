@@ -36,7 +36,6 @@ public class RecoverScheduledJob {
 
             scheduler.scheduleJob(jobDetail.getObject(), cronTrigger.getObject());
 
-
             scheduler.start();
 
         } catch (Exception e) {
