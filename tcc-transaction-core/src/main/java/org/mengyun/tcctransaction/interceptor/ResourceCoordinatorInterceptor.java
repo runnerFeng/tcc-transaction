@@ -60,7 +60,7 @@ public class ResourceCoordinatorInterceptor {
 
         Transaction transaction = transactionManager.getCurrentTransaction();
         TransactionXid xid = new TransactionXid(transaction.getXid().getGlobalTransactionId());
-
+//todo
         if (FactoryBuilder.factoryOf(compensable.transactionContextEditor()).getInstance().get(pjp.getTarget(), method, pjp.getArgs()) == null) {
             FactoryBuilder.factoryOf(compensable.transactionContextEditor()).getInstance().set(new TransactionContext(xid, TransactionStatus.TRYING.getId()), pjp.getTarget(), ((MethodSignature) pjp.getSignature()).getMethod(), pjp.getArgs());
         }

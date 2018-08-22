@@ -13,7 +13,6 @@ public class TransactionUtils {
         if (propagation.equals(Propagation.MANDATORY) && !isTransactionActive && transactionContext == null) {
             return false;
         }
-
         return true;
     }
 }
