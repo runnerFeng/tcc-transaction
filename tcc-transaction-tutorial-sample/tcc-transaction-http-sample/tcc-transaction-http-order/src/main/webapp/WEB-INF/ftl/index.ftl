@@ -4,7 +4,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>tcc transacton dubbo sample order</title>
+    <title>tcc transacton http sample order</title>
 </head>
 <body>
 <div class="page">
@@ -15,21 +15,21 @@
     支付成功后，各个project会打印如下日志：
     <br/>
     <br>
-    &nbsp;&nbsp; <b>sample-dubbo-order:</b>
+    &nbsp;&nbsp; <b>sample-http-order:</b>
     <br/>
     &nbsp;&nbsp;&nbsp;&nbsp; order try make payment called
     <br/>
     &nbsp;&nbsp;&nbsp;&nbsp; order confirm make payment called
     <br/>
     <br/>
-    &nbsp;&nbsp; <b>sample-dubbo-capital:</b>
+    &nbsp;&nbsp; <b>sample-http-capital:</b>
     <br/>
     &nbsp;&nbsp;&nbsp;&nbsp; capital try record called
     <br/>
     &nbsp;&nbsp;&nbsp;&nbsp; capital confirm record called
     <br/>
     <br/>
-    &nbsp;&nbsp; <b>sample-dubbo-redpacket:</b>
+    &nbsp;&nbsp; <b>sample-http-redpacket:</b>
     <br/>
     &nbsp;&nbsp;&nbsp;&nbsp; red packet try record called
     <br/>

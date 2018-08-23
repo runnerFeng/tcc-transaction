@@ -19,7 +19,10 @@ public class RecoverScheduledJob {
     private Scheduler scheduler;
 
     public void init() {
-
+        /**
+         * Q:如果应用集群部署，会不会相同事务被多个定时任务同时重试？
+           A:答案是不会，事务在重试时会乐观锁更新，同时只有一个应用节点能更新成功,其它节点不能处理则忽略
+         */
         try {
             MethodInvokingJobDetailFactoryBean jobDetail = new MethodInvokingJobDetailFactoryBean();
             jobDetail.setTargetObject(transactionRecovery);
